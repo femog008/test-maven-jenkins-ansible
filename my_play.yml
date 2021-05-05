@@ -1,0 +1,11 @@
+---
+- hosts: ec2
+  become: yes
+  vars_files:
+    - keys.yml
+  roles:
+    - geerlingguy.apache
+ 
+  #tasks:
+  #  - name: Install apache Tomcat
+      
