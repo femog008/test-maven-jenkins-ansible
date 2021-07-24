@@ -9,13 +9,9 @@
     
 - hosts: web
   become: true
-  #gather_facts: false  
-  #become_user: vagrant
-  #vars_files:
-  #  - keys.yml
-  #roles:
-  #  - role: geerlingguy.java
-  #  - role: cetic.tomcat  
+  vars:
+  - warName: DemoApp.war
+  - warRemotePath: /opt/tomcat/webapps
   tasks:
     - name: include java
       include_role:
@@ -26,11 +22,14 @@
     - name: Copy WAR to server
       copy:
         src: './target/demo-0.0.1-SNAPSHOT.war'
-        dest: '/opt/apache-tomcat-7.0.61/webapps/'
+        dest: '{{ warRemotePath }}/{{ warName }}'
       when:
         - ansible_facts['distribution'] == 'RedHat'
-      notify: restart tomcat
-      
+    - name: Unzip WAR file
+      unarchive: src={{ warRemotePath }}/{{ warName }} dest={{ warRemotePath }}/{{ warName }} copy=no mode=0755 #owner=tomcat7 group=tomcat7
+      notify:
+        - restart tomcat8
+     
     - name: Delete remote war file
       file: path={{ warRemotePath }}/{{ warName }} state=absent
     
