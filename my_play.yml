@@ -11,14 +11,14 @@
   become: true
   vars:
   - warName: DemoApp.war
-  - warRemotePath: /opt/tomcat/webapps
+  - warRemotePath: /usr/share/tomcat
   tasks:
     - name: include java
       include_role:
         name: geerlingguy.java
     - name: include tomcat
       include_role:
-        name: cetic.tomcat
+        name: tomcat
     - name: Creates directory
       file:
         path: '{{ warRemotePath }}/DemoApp'
@@ -30,9 +30,9 @@
       # when:
         # - ansible_facts['distribution'] == 'RedHat'
     - name: Unzip WAR file
-      unarchive: src='{{ warRemotePath }}/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 #owner=tomcat7 group=tomcat7
+      unarchive: src='{{ warRemotePath }}/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
       notify:
-        - restart tomcat8
+        - restart tomcat
     - name: Delete remote war file
       file: path={{ warRemotePath }}/{{ warName }} state=absent
 
