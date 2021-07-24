@@ -9,10 +9,10 @@
       command: 'mvn clean package'
     
 - hosts: web
-  become: true
+  #become: true
   become_user: vagrant
-  vars_files:
-    - keys.yml
+  #vars_files:
+  #  - keys.yml
   #roles:
   #  - role: geerlingguy.java
   #  - role: cetic.tomcat  
