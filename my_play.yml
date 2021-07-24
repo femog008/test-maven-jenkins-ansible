@@ -10,7 +10,7 @@
     
 - hosts: web
   become: true
-  #become_user: root
+  become_user: vagrant
   vars_files:
     - keys.yml
   #roles:
