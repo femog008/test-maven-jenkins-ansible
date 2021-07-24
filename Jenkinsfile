@@ -27,7 +27,6 @@ pipeline {
     stage('Ansible Deploy') {
   			steps {
           ansiblePlaybook become: true, credentialsId: 'Femog008', disableHostKeyChecking: true, installation: 'Ansible', playbook: 'my_play.yml'
-  			   #sh "ansible-playbook main.yml -i inventories/dev/hosts -- user jenkins --key-file ~/.ssh/id_rsa"
   			}
     }
   }
