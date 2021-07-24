@@ -30,7 +30,7 @@
         path: '{{ warRemotePath }}/DemoApp'
         state: directory
     - name: Unzip WAR file
-      unarchive: src='{{ warRemotePath }}'/DemoApp dest='{{ warRemotePath }}/{{ warName }}' copy=no mode=0755 #owner=tomcat7 group=tomcat7
+      unarchive: src='{{ warRemotePath }}/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 #owner=tomcat7 group=tomcat7
       notify:
         - restart tomcat8
     - name: Delete remote war file
