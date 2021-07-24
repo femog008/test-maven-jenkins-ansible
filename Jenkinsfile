@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Ansible Deploy') {
   			steps {
-          ansiblePlaybook become: true, credentialsId: 'Femog008', disableHostKeyChecking: true, installation: 'Ansible', playbook: 'my_play.yml'
+          ansiblePlaybook become: true, credentialsId: 'vagrant', disableHostKeyChecking: true, installation: 'Ansible', playbook: 'my_play.yml'
   			}
     }
   }
