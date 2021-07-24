@@ -28,19 +28,16 @@
       file:
         path: '{{ warRemotePath }}/DemoApp'
         state: directory
+    - name: Delete remote war file
+      file: path={{ warRemotePath }}/{{ warName }} state=absent
     - name: Copy WAR to server
       copy:
         src: './target/demo-0.0.1-SNAPSHOT.war'
         dest: '{{ warRemotePath }}/{{ warName }}'
-      # when:
-        # - ansible_facts['distribution'] == 'RedHat'
     - name: Unzip WAR file
       unarchive: src='{{ warRemotePath }}/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
       notify:
         - restart tomcat
-    - name: Delete remote war file
-      file: path={{ warRemotePath }}/{{ warName }} state=absent
-
   handlers:
-  - name: restart tomcat8
-    service: name=tomcat8 state=restarted
+  - name: restart tomcat
+    service: name=tomcat state=restarted
