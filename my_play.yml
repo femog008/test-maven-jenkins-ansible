@@ -2,7 +2,8 @@
 - hosts: localhost
   connection: local 
   become: true
-  tasks:
+  become_user: root
+  gather_facts: false  tasks:
     - name: Package war file
       command: 'mvn clean package'
     
