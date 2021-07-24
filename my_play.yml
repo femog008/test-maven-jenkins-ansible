@@ -9,7 +9,7 @@
     
 - hosts: web
   become: true
-  gather_facts: false  
+  #gather_facts: false  
   #become_user: vagrant
   #vars_files:
   #  - keys.yml
