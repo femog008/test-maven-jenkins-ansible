@@ -11,7 +11,7 @@
   become: true
   vars:
   - warName: DemoApp.war
-  - warRemotePath: /usr/share/tomcat
+  - warRemotePath: /usr/share/tomcat/webapps
   - tomcat_ver: 9.0.30                          # Tomcat version to install
   - ui_manager_user: manager                    # User who can access the UI manager section only
   - ui_manager_pass: Str0ngManagerP@ssw3rd      # UI manager user password
