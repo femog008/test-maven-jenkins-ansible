@@ -19,16 +19,16 @@
     - name: include tomcat
       include_role:
         name: cetic.tomcat
-    - name: Copy WAR to server
-      copy:
-        src: './target/demo-0.0.1-SNAPSHOT.war'
-        dest: '{{ warRemotePath }}/{{ warName }}'
-      when:
-        - ansible_facts['distribution'] == 'RedHat'
     - name: Creates directory
       file:
         path: '{{ warRemotePath }}/DemoApp'
         state: directory
+    - name: Copy WAR to server
+      copy:
+        src: './target/demo-0.0.1-SNAPSHOT.war'
+        dest: '{{ warRemotePath }}/{{ warName }}'
+      # when:
+        # - ansible_facts['distribution'] == 'RedHat'
     - name: Unzip WAR file
       unarchive: src='{{ warRemotePath }}/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 #owner=tomcat7 group=tomcat7
       notify:
