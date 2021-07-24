@@ -24,21 +24,24 @@
     - name: include tomcat
       include_role:
         name: tomcat
-    - name: Creates directory
-      file:
-        path: '{{ warRemotePath }}/DemoApp'
-        state: directory
+    # - name: Creates directory
+    #   file:
+    #     path: '{{ warRemotePath }}/DemoApp'
+    #     mode: 0755
+    #     owner: tomcat
+    #     group: tomcat
+    #     state: directory
     - name: Delete remote war file
-      file: path='{{ warRemotePath }}/DemoApp/{{ warName }}' state=absent
+      file: path='{{ warRemotePath }}/{{ warName }}' state=absent
     - name: Copy WAR to server
       copy:
         src: './target/DemoApp-1.0.war'
-        dest: '{{ warRemotePath }}/DemoApp/{{ warName }}'
-        # mode: 0755
-        # owner: tomcat
-        # group: tomcat
-    - name: Unzip WAR file
-      unarchive: src='{{ warRemotePath }}/DemoApp/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
+        dest: '{{ warRemotePath }}/{{ warName }}'
+        mode: 0755
+        owner: tomcat
+        group: tomcat
+    # - name: Unzip WAR file
+    #   unarchive: src='{{ warRemotePath }}/DemoApp/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
       notify:
         - restart tomcat
   handlers:
