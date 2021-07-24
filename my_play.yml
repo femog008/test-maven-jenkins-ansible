@@ -37,8 +37,8 @@
         # group: tomcat
     - name: Unzip WAR file
       unarchive: src='{{ warRemotePath }}/DemoApp/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
-    - name: Delete remote war file
-      file: path='{{ warRemotePath }}/DemoApp/{{ warName }}' state=absent
+    # - name: Delete remote war file
+    #   file: path='{{ warRemotePath }}/DemoApp/{{ warName }}' state=absent
       notify:
         - restart tomcat
   handlers:

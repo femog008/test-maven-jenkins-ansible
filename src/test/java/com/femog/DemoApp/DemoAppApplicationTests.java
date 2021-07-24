@@ -1,10 +1,10 @@
-package com.femog008.demo;
+package com.femog.DemoApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class DemoAppApplicationTests {
 
 	@Test
 	void contextLoads() {
