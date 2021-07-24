@@ -11,13 +11,19 @@
   #become_user: root
   vars_files:
     - keys.yml
-  roles:
-    - role: geerlingguy.java
-    - role: cetic.tomcat  
+  #roles:
+  #  - role: geerlingguy.java
+  #  - role: cetic.tomcat  
   tasks:
+    - name: include java
+      include_role:
+        name: geerlingguy.java
+    - name: include tomcat
+      include_role:
+        name: cetic.tomcat
     - name: Copy WAR to server
       copy:
-        src: './target/DemoApp-1.0.war'
+        src: './target/demo-0.0.1-SNAPSHOT.war'
         dest: '/opt/apache-tomcat-7.0.61/webapps/'
       when:
         - ansible_facts['distribution'] == 'RedHat'
