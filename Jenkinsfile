@@ -1,15 +1,34 @@
 pipeline {
-    agent any
-    stages {
-        stage('Deploy') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    sh 'for n in `seq 1 10`; do echo $n; sleep 1; done'
-                }
-                timeout(time: 1, unit: 'MINUTES') {
-                    sh 'for n in `seq 1 50`; do echo $n; sleep 1; done'
-                }
-            }
+    agent any  
+    
+    tools
+    {
+       maven "MAVEN_HOME"
+    }    
+    
+  stages {
+    stage('Tools Init') {
+        steps {
+            script {
+                echo "PATH = ${PATH}"
+                echo "M2_HOME = ${M2_HOME}"
+             def tfHome = tool name: 'Ansible'
+              env.PATH = "${tfHome}:${env.PATH}"
+               sh 'ansible --version'
+                
+          }
         }
     }
+    stage('Execute Maven') {
+  		   steps { 			 
+  				sh 'mvn package'             
+  		  }
+    }
+    stage('Ansible Deploy') {
+  			steps {
+          ansiblePlaybook become: true, credentialsId: 'Femog008', disableHostKeyChecking: true, installation: 'Ansible', playbook: 'my_play.yml'
+  			   #sh "ansible-playbook main.yml -i inventories/dev/hosts -- user jenkins --key-file ~/.ssh/id_rsa"
+  			}
+    }
+  }
 }

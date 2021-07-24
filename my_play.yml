@@ -1,11 +1,32 @@
 ---
-- hosts: ec2
-  become: yes
+- hosts: localhost
+  connection: local 
+  become: true
+  tasks:
+    - name: Package war file
+      command: 'mvn clean package'
+    
+- hosts: web
+  become: true
+  #become_user: root
   vars_files:
     - keys.yml
   roles:
-    - geerlingguy.apache
- 
-  #tasks:
-  #  - name: Install apache Tomcat
+    - role: geerlingguy.java
+    - role: cetic.tomcat  
+  tasks:
+    - name: Copy WAR to server
+      copy:
+        src: './target/LoginWebApp-1.war'
+        dest: '/opt/apache-tomcat-7.0.61/webapps/'
+      when:
+        - ansible_facts['distribution'] == 'RedHat'
+      notify: restart tomcat
       
+    - name: Delete remote war file
+      file: path={{ warRemotePath }}/{{ warName }} state=absent
+    
+        
+    handlers:
+    - name: restart tomcat
+      service: name=tomcat state=restarted
