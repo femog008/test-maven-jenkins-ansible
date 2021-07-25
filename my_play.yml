@@ -3,7 +3,7 @@
   become: true
   tasks:
     - name: Package war file
-      command: 'mvn clean package'
+      command: chdir=/var/lib/jenkins/workspace/test 'mvn clean package'
     
 - hosts: web
   become: true
