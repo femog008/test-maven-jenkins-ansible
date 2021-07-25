@@ -1,4 +1,4 @@
-package com.oktadeveloper.demo;
+package com.femog.DemoApp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

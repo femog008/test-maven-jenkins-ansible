@@ -1,4 +1,4 @@
-package com.oktadeveloper.demo;
+package com.femog.DemoApp;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
