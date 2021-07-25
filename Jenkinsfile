@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Execute Maven') {
   		   steps { 			 
-  				sh 'mvn package'             
+  				sh 'mvn clean package'             
   		  }
     }
     stage('Ansible Deploy') {
