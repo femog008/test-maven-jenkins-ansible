@@ -1,9 +1,11 @@
 ---
-- hosts: local
-  become: true
-  tasks:
-    - name: Package war file
-      command: chdir=/var/lib/jenkins/workspace/test 'mvn clean package'
+# - hosts: localhost
+  # connection: local 
+  # become: true
+  # become_user: vagrant
+  # tasks:
+    # - name: Package war file
+      # command: 'mvn clean package'
     
 - hosts: web
   become: true
@@ -22,13 +24,6 @@
     - name: include tomcat
       include_role:
         name: tomcat
-    # - name: Creates directory
-    #   file:
-    #     path: '{{ warRemotePath }}/DemoApp'
-    #     mode: 0755
-    #     owner: tomcat
-    #     group: tomcat
-    #     state: directory
     - name: Delete remote war file
       file: path='{{ warRemotePath }}/{{ warName }}' state=absent
     - name: Copy WAR to server
@@ -38,8 +33,6 @@
         mode: 0755
         owner: tomcat
         group: tomcat
-    # - name: Unzip WAR file
-    #   unarchive: src='{{ warRemotePath }}/DemoApp/{{ warName }}' dest='{{ warRemotePath }}/DemoApp' copy=no mode=0755 owner=tomcat group=tomcat
       notify:
         - restart tomcat
   handlers:
