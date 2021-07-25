@@ -1,11 +1,11 @@
 ---
-# - hosts: localhost
-  # connection: local 
-  # become: true
-  # become_user: vagrant
-  # tasks:
-    # - name: Package war file
-      # command: 'mvn clean package'
+- hosts: localhost
+  connection: local 
+  become: true
+  become_user: vagrant
+  tasks:
+    - name: Package war file
+      command: 'mvn clean package'
     
 - hosts: web
   become: true
