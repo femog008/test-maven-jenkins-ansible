@@ -1,5 +1,6 @@
 ---
 - hosts: local
+  connection: local 
   become: true
   tasks:
     - name: Package war file
