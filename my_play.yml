@@ -1,8 +1,9 @@
 ---
 - hosts: localhost
+  gather_facts: false
   connection: local 
   become: true
-  remote_user: vagrant
+  become_user: vagrant
   tasks:
     - name: Package war file
       command: 'mvn clean package'
