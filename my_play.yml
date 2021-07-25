@@ -35,7 +35,7 @@
       file: path='{{ warRemotePath }}/{{ warName }}' state=absent
     - name: Copy WAR to server
       copy:
-        src: './target/demo-0.0.1-SNAPSHOT.war'
+        src: './target/DemoApp-0.0.1-SNAPSHOT.war'
         dest: '{{ warRemotePath }}/{{ warName }}'
         mode: 0755
         owner: tomcat
